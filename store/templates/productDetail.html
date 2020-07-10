@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} Eshop | Product {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <ul class="list-group">
+                <li class="list-group-item active bg-secondary border-0"><a style="text-decoration:none; color:white;" href="/">All Category</a></li>
+            	{% for category in categories %}
+                <li class="list-group-item"><a style="text-decoration:none; color:black;" href="/?category_id={{ category.id }}">{{ category.name }}</a></li>
+				{% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-10">
+            	{% if product  %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ product.image.url }}" height="200px;" width="250px" alt="{{ product.name }}">
+                                </div>
+                                <div class="col-md-8">
+                                    <div>
+                                        <h1 class="font-weight-light">{{ product.name }}</h1>
+                                        <h4 class="font-weight-light">Price: <strong>{{ product.price|currency }}</strong></h4>
+                                         <form action="/#{{ product.id }}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ product.id }}" name="product">
+                                            {% if product|is_in_cart:request.session.cart %}
+                                            <a class="btn btn-warning" href="/cart">Go to cart </a>
+                                            {% else %}
+                                            <input class="btn btn-primary" type="submit" value="Add to cart">
+                                            {% endif %}
+                                        </form>
+                                        <p class="mt-2"><strong>Description: </strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae nulla doloribus quibusdam vel repellendus, vero quaerat quae. Fuga minima est error adipisci, porro amet debitis. Reprehenderit, totam, blanditiis. Temporibus itaque labore quo nobis ad molestiae magnam esse ducimus rerum vel fuga, enim fugiat deleniti repellendus. Assumenda consequuntur alias reiciendis!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

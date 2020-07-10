@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} Eshop | Cart {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if request.session.cart %}
+        <h1 class="font-weight-light">Cart</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>S.no</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+            	{% for product in allProduct %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img height="80px" width="100px" src="{{ product.image.url }}" alt=""></td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price|currency }}</td>
+                    <td>{{ product|cart_quantity:request.session.cart }}</td>
+                    <td>
+                    	<a href="cart?increase={{ product.id }}" class="btn btn-sm btn-warning">+</a>
+                        <a href="cart?decrease={{ product.id }}" class="btn btn-sm btn-danger">-</a>
+                    </td>
+                    <th>{{ product|price_subtotal:request.session.cart|currency }}</th>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+            	<tr>
+            		<td colspan="5"></td>
+            		<td colspan="1"><strong>Total : </strong></td>
+            		<td>{{ allProduct|price_total:request.session.cart|currency }}</td>
+            	</tr>
+            </tfoot>
+        </table>
+    </div>
+    <hr>
+    <div class="float-right">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
+          Checkout
+        </button>
+    </div>
+    {% else %}
+        <h1 class="font-weight-light text-center">No cart added</h1>
+    {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/checkout" method="post">
+                {% csrf_token %}
+                 <div class="form-group">
+                    <label for="address">Address</label>
+                    <input name="address" type="text" class="form-control" id="address" placeholder="Enter address">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input name="phone" type="number" class="form-control" id="phone" placeholder="Enter phone">
+                </div>
+                <div class="float-right">
+                    <input type="submit" value="Confirm" class="btn btn-success">
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Eshop | Signup {% endblock%}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="font-weight-light">Signup | Eshop </h1>
+            <hr>
+            <form action="/signup" method="POST">
+                {% if error %}
+                <small style="color:red"> {{ error.field_error }} </small>
+                <small style="color:green"> {{ error.success }} </small>
+                {% endif %}
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input value="{{ userData.name }}" name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter name">
+                    {% if error %}
+                    <small style="color:red"> {{ error.name_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input value="{{ userData.email }}" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    {% if error %}
+                    <small style="color:red"> {{ error.emailExits_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input value="{{ userData.phone }}" name="phone" type="number" class="form-control" id="phone" placeholder="Enter Password">
+                    {% if error %}
+                    <small style="color:red"> {{ error.phoneNumber_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+                    {% if error %}
+                    <small style="color:red">{{ error.notMatch_error }}
+                        {{ error.minPass_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Enter Password">
+                    {% if error %}
+                    <small style="color:red"> {{ error.notMatch_error }}
+                        {{ error.minPass_error }} </small>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">SIGNUP</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

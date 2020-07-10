@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} Eshop | Orders {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1 class="font-weight-light">Order</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>S.no</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            	{% for order in orders %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img height="80px" width="100px" src="{{ order.product.image.url }}" alt=""></td>
+                    <td>{{ order.product }}</td>
+                    <td>{{ order.price|currency }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <th>{{ order.quantity|multipy:order.price|currency }}</th>
+                    <th>{{ order.date }}</th>
+                    {% if order.completed %}
+                    <th><span class="badge badge-success">Completed</span></th>
+                    {% else %}
+                    <th><span class="badge badge-warning">Pending</span></th>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <hr>
+
+
+</div>
+{% endblock %}
