@@ -13,33 +13,35 @@
             </ul>
         </div>
         <div class="col-md-10">
-            <div class="row product-row mx-auto">
+            <div class="row product-row mx-auto mb-2">
                 {% if products|length == 0 %}
-                <div class="alert alert-warning col-12"><strong>
+                <div class="alert alert-warning col-12">
+                    <strong>
                         <h3>No result found</h3>
-                    </strong></div>
+                    </strong>
+                </div>
                 {% elif products|length > 0 %}
-                {% for product in products %}
-                <div id="{{ product.id }}" class="col-md-4">
-                    <div class="card product-card mb-2">
-                        <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-text">{{ product.price|currency }}</p>
-                            <form action="/#{{ product.id }}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" value="{{ product.id }}" name="product">
-                                {% if product|is_in_cart:request.session.cart %}
-                                <a class="btn btn-warning" href="/cart">Go to cart </a>
-                                {% else %}
-                                <input class="btn btn-primary" type="submit" value="Add to cart">
-                                {% endif %}
-                                <a class="btn btn-success" href="/?id={{ product.id }}">View</a>
-                            </form>
+                    {% for product in products %}
+                    <div id="{{ product.id }}" class="col-md-4 mb-4">
+                        <div class="card product-card mb-2">
+                            <img class="card-img-top" src="{{ product.image.url }}" height="200px" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-title">{{ product.name|truncatechars:60 }}</p>
+                                <p class="card-text">{{ product.price|currency }}</p>
+                                <form action="/#{{ product.id }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ product.id }}" name="product">
+                                    {% if product|is_in_cart:request.session.cart %}
+                                    <a class="btn btn-warning" href="/cart">Go to cart </a>
+                                    {% else %}
+                                    <input class="btn btn-primary" type="submit" value="Add to cart">
+                                    {% endif %}
+                                    <a class="btn btn-success" href="/?id={{ product.id }}">View</a>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>

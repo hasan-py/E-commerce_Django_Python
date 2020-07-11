@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="{{ product.image.url }}" height="200px;" width="250px" alt="{{ product.name }}">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
                                 </div>
                                 <div class="col-md-8">
                                     <div>
@@ -33,7 +33,7 @@
                                             <input class="btn btn-primary" type="submit" value="Add to cart">
                                             {% endif %}
                                         </form>
-                                        <p class="mt-2"><strong>Description: </strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae nulla doloribus quibusdam vel repellendus, vero quaerat quae. Fuga minima est error adipisci, porro amet debitis. Reprehenderit, totam, blanditiis. Temporibus itaque labore quo nobis ad molestiae magnam esse ducimus rerum vel fuga, enim fugiat deleniti repellendus. Assumenda consequuntur alias reiciendis!</p>
+                                        <p class="mt-2"><strong>Description: </strong> {{ product.description }}</p>
                                     </div>
                                 </div>
                             </div>

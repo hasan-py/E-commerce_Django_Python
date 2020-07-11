@@ -2,10 +2,10 @@ from django.db import models
 from .category import Category
 
 class Product(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=220)
 	price = models.IntegerField(default=0)
 	category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1)
-	description = models.CharField(max_length=255,default='')
+	description = models.TextField()
 	image = models.ImageField(upload_to='upload/products')
 
 	def __str__(self):
