@@ -8,7 +8,7 @@
             <ul class="list-group">
                 <li class="list-group-item active bg-secondary border-0"><a style="text-decoration:none; color:white;" href="/">All Category</a></li>
                 {% for category in categories %}
-                <li class="list-group-item"><a style="text-decoration:none; color:black;" href="/?category_id={{ category.id }}">{{ category.name }}</a></li>
+                <li class="list-group-item ctg"><a style="text-decoration:none; color:black;" href="/?category_id={{ category.id }}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -17,7 +17,7 @@
                 {% if products|length == 0 %}
                 <div class="alert alert-warning col-12">
                     <strong>
-                        <h3>No result found</h3>
+                        <h3>No Product Found!</h3>
                     </strong>
                 </div>
                 {% elif products|length > 0 %}
