@@ -29,4 +29,4 @@ class Checkout(View):
 			newOrder.save()
 
 		request.session['cart'] = {}
-		return redirect('cart')
+		return redirect('order')
