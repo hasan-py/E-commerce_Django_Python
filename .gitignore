@@ -41,3 +41,6 @@ migrations/
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py
+
+# Editor
+.vscode/
