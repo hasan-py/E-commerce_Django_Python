@@ -5,11 +5,11 @@ from .models import Customer
 from .models import Order
 
 class AdminProduct(admin.ModelAdmin):
-	list_dispaly = ['name','price','category']
+	list_display = ['id', 'name','price','category', 'date']
 
 
 class AdminCategory(admin.ModelAdmin):
-	list_dispaly = ['name']
+	list_display = ['name']
 
 
 
