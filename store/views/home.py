@@ -8,7 +8,7 @@ class Home(View):
 	def get(self,request):
 		cart = request.session.get('cart')
 		categories = Category.getAllCategory()
-		products = Product.getAllProduct()
+		products = Product.getAllProduct().order_by('-id')
 
 		if request.GET.get('id'):
 			filterProductById = Product.objects.get(id=int(request.GET.get('id')))
@@ -39,4 +39,4 @@ class Home(View):
 
 		print(cart)
 		request.session['cart'] = cart
-		return redirect('home')
+		return redirect('cart')
