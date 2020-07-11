@@ -7,6 +7,7 @@ class Product(models.Model):
 	category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1)
 	description = models.TextField()
 	image = models.ImageField(upload_to='upload/products')
+	date = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
 		return self.name
